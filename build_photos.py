@@ -13,8 +13,12 @@ import hashlib, json, sys
 from datetime import datetime
 from pathlib import Path
 from PIL import Image, ImageOps
+try:
+    import pillow_heif; pillow_heif.register_heif_opener()  # iPhone HEIC photos
+except ImportError:
+    pass
 
-EXTS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"}
+EXTS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".heic", ".heif"}
 FULL_PX, THUMB_PX = 2400, 900
 
 def capture_time(img, path):
