@@ -1,0 +1,40 @@
+name: Sync photos from Google Drive
+
+on:
+  schedule:
+    - cron: "0 8 * * *"   # nightly, ~3am Central
+  workflow_dispatch:       # "Run workflow" button for instant updates
+
+permissions:
+  contents: write
+
+env:
+  DRIVE_FOLDER: https://drive.google.com/drive/folders/1wp0AWdLqDpYlNUq5Yf9oKjypkdiLlLf-
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: pip install gdown pillow pillow-heif
+
+      - name: Download Drive folder
+        run: gdown --folder "$DRIVE_FOLDER" -O originals --remaining-ok --quiet
+
+      - name: Build web images
+        run: |
+          count=$(find originals -type f | wc -l)
+          echo "Downloaded $count files"
+          if [ "$count" -eq 0 ]; then echo "Nothing downloaded - leaving site unchanged"; exit 0; fi
+          python3 build_photos.py originals
+
+      - name: Publish changes
+        run: |
+          git config user.name "photo-sync-bot"
+          git config user.email "photo-sync-bot@users.noreply.github.com"
+          git add photos photos.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Sync photos from Drive"
+          git push
