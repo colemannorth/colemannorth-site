@@ -21,7 +21,7 @@ jobs:
         run: pip install gdown pillow pillow-heif
 
       - name: Download Drive folder
-        run: gdown --folder "$DRIVE_FOLDER" -O originals --remaining-ok --quiet
+        run: gdown --folder "$DRIVE_FOLDER" -O originals --quiet
 
       - name: Build web images
         run: |
