@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coleman North — Photography</title>
+<meta name="description" content="Photography portfolio of Coleman North.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Coleman North</a>
+  <nav><a href="index.html" aria-current="page">Work</a><a href="about.html">About</a></nav>
+</header>
+
+<main>
+  <div id="grid" class="grid" aria-live="polite"></div>
+  <p id="empty" class="empty" hidden>New work coming soon.</p>
+</main>
+
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" aria-label="Close">&times;</button>
+  <button class="lb-btn lb-prev" aria-label="Previous">&#8249;</button>
+  <img id="lb-img" alt="">
+  <button class="lb-btn lb-next" aria-label="Next">&#8250;</button>
+</div>
+
+<footer class="site-footer">&copy; <span id="yr"></span> Coleman North</footer>
+<script src="gallery.js"></script>
+</body>
+</html>
