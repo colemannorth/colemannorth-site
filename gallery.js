@@ -18,6 +18,7 @@
         const img = document.createElement('img');
         img.src = p.thumb;
         img.alt = p.alt || '';
+        if (p.w && p.h) { img.width = p.w; img.height = p.h; }
         img.loading = 'lazy';
         img.decoding = 'async';
         img.onload = () => img.classList.add('loaded');

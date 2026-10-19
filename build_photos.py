@@ -60,7 +60,9 @@ def main():
                 save(img, full, FULL_PX, 82)
                 save(img, thumb, THUMB_PX, 78)
                 print("added", path.name)
-        entries.append({"full": f"photos/full/{name}", "thumb": f"photos/thumb/{name}",
+        with Image.open(full_dir / name) as f:
+            w, h = f.size
+        entries.append({"full": f"photos/full/{name}", "thumb": f"photos/thumb/{name}", "w": w, "h": h,
                         "alt": path.stem.replace("_", " ").replace("-", " "), "_t": taken})
 
     for d in (full_dir, thumb_dir):
